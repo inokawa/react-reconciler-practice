@@ -40,6 +40,19 @@ export const reconciler = ReactReconciler({
     parent.appendChild(child);
   },
 
+  removeChildFromContainer(container, child) {
+    container.removeChild(child);
+  },
+  removeChild(parent, child) {
+    parent.removeChild(child);
+  },
+  insertInContainerBefore(container, child, before) {
+    container.insertBefore(child, before);
+  },
+  insertBefore(parent, child, before) {
+    parent.insertBefore(child, before);
+  },
+
   clearContainer(container) {
     let c = container.firstChild;
     while (c) {
