@@ -15,7 +15,14 @@ export const reconciler = ReactReconciler({
     if (props.src) el.src = props.src;
     return el;
   },
-  createTextInstance() {},
+  createTextInstance(
+    text,
+    rootContainerInstance,
+    hostContext,
+    internalInstanceHandle
+  ) {
+    return document.createTextNode(text);
+  },
 
   appendChildToContainer() {},
   appendChild() {},
