@@ -108,7 +108,9 @@ export const reconciler = ReactReconciler({
   getChildHostContext() {},
   getPublicInstance() {},
   getRootHostContext() {},
-  prepareForCommit() {},
+  prepareForCommit() {
+    return null;
+  },
   resetAfterCommit() {},
   shouldSetTextContent() {
     return false;
