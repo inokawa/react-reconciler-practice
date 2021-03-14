@@ -19,7 +19,7 @@ function App() {
     <div className="App" onClick={() => setShowLogo((prev) => !prev)}>
       <header className="App-header">
         {showLogo && <img src={logo} className="App-logo" alt="logo" />}
-        <p style={{ background: "red" }}>
+        <p style={{ background: bgColor }}>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <a

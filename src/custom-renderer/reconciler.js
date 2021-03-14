@@ -1,5 +1,17 @@
 import ReactReconciler from "react-reconciler";
 
+const ATTRS = ["style", "alt", "className", "href", "rel", "src", "target"];
+
+const applyProps = (el, props, k) => {
+  if (k === "style") {
+    Object.entries(props.style).forEach(([k, v]) => {
+      el.style[k] = v;
+    });
+  } else {
+    el[k] = props[k];
+  }
+};
+
 export const reconciler = ReactReconciler({
   supportsMutation: true,
 
@@ -11,14 +23,11 @@ export const reconciler = ReactReconciler({
     internalInstanceHandle
   ) {
     const el = document.createElement(type);
-    ["alt", "className", "href", "rel", "src", "target"].forEach((k) => {
-      if (props[k]) el[k] = props[k];
+    ATTRS.forEach((k) => {
+      if (props[k]) {
+        applyProps(el, props, k);
+      }
     });
-    if (props.style) {
-      Object.entries(props.style).forEach(([k, v]) => {
-        el.style[k] = v;
-      });
-    }
 
     if (props.onClick) {
       el.addEventListener("click", props.onClick);
@@ -66,8 +75,34 @@ export const reconciler = ReactReconciler({
     }
   },
 
-  prepareUpdate() {},
-  commitUpdate() {},
+  prepareUpdate(
+    instance,
+    type,
+    oldProps,
+    newProps,
+    rootContainerInstance,
+    currentHostContext
+  ) {
+    const payload = {};
+    ATTRS.forEach((k) => {
+      if (oldProps[k] !== newProps[k]) payload[k] = newProps[k];
+    });
+    return payload;
+  },
+  commitUpdate(
+    instance,
+    updatePayload,
+    type,
+    oldProps,
+    newProps,
+    finishedWork
+  ) {
+    ATTRS.forEach((k) => {
+      if (updatePayload[k]) {
+        applyProps(instance, updatePayload, k);
+      }
+    });
+  },
 
   finalizeInitialChildren() {},
   getChildHostContext() {},
