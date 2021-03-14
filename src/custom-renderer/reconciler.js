@@ -34,6 +34,14 @@ export const reconciler = ReactReconciler({
     parent.appendChild(child);
   },
 
+  clearContainer(container) {
+    let c = container.firstChild;
+    while (c) {
+      container.removeChild(c);
+      c = container.firstChild;
+    }
+  },
+
   prepareUpdate() {},
   commitUpdate() {},
 
