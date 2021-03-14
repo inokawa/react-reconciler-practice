@@ -56,10 +56,6 @@ export const reconciler = ReactReconciler({
     parent.insertBefore(child, before);
   },
 
-  commitTextUpdate(instance, oldText, newText) {
-    if (oldText !== newText) instance.textContent = newText;
-  },
-
   clearContainer(container) {
     let c = container.firstChild;
     while (c) {
@@ -94,18 +90,23 @@ export const reconciler = ReactReconciler({
       applyProps(instance, updatePayload, k);
     });
   },
+  commitTextUpdate(instance, oldText, newText) {
+    if (oldText !== newText) instance.textContent = newText;
+  },
 
   finalizeInitialChildren(instance, type, props, rootContainer, hostContext) {
     return false;
+  },
+  commitMount(instance, type, props, internalHandle) {},
+
+  getRootHostContext(rootContainer) {
+    return null;
   },
   getChildHostContext(parentHostContext, type, rootContainer) {
     return parentHostContext;
   },
   getPublicInstance(instance) {
     return instance;
-  },
-  getRootHostContext(rootContainer) {
-    return null;
   },
   prepareForCommit(containerInfo) {
     return null;
@@ -114,4 +115,5 @@ export const reconciler = ReactReconciler({
   shouldSetTextContent(type, props) {
     return false;
   },
+  resetTextContent(instance) {},
 });
