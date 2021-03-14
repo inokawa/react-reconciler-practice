@@ -11,8 +11,9 @@ export const reconciler = ReactReconciler({
     internalInstanceHandle
   ) {
     const el = document.createElement(type);
-    if (props.className) el.className = props.className;
-    if (props.src) el.src = props.src;
+    ["alt", "className", "href", "rel", "src", "target"].forEach((k) => {
+      if (props[k]) el[k] = props[k];
+    });
     return el;
   },
   createTextInstance(
