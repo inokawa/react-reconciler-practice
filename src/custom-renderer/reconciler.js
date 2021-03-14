@@ -21,13 +21,7 @@ const applyProps = (el, props, k) => {
 export const reconciler = ReactReconciler({
   supportsMutation: true,
 
-  createInstance(
-    type,
-    props,
-    rootContainerInstance,
-    hostContext,
-    internalInstanceHandle
-  ) {
+  createInstance(type, props, rootContainer, hostContext, internalHandle) {
     const el = document.createElement(type);
     Object.keys(props).forEach((k) => {
       applyProps(el, props, k);
@@ -35,12 +29,7 @@ export const reconciler = ReactReconciler({
 
     return el;
   },
-  createTextInstance(
-    text,
-    rootContainerInstance,
-    hostContext,
-    internalInstanceHandle
-  ) {
+  createTextInstance(text, rootContainer, hostContext, internalHandle) {
     return document.createTextNode(text);
   },
 
@@ -84,8 +73,8 @@ export const reconciler = ReactReconciler({
     type,
     oldProps,
     newProps,
-    rootContainerInstance,
-    currentHostContext
+    rootContainer,
+    hostContext
   ) {
     const payload = {};
     ATTRS.forEach((k) => {
@@ -106,15 +95,15 @@ export const reconciler = ReactReconciler({
     });
   },
 
-  finalizeInitialChildren() {},
-  getChildHostContext() {},
-  getPublicInstance() {},
-  getRootHostContext() {},
-  prepareForCommit() {
+  finalizeInitialChildren(instance, type, props, rootContainer, hostContext) {},
+  getChildHostContext(parentHostContext, type, rootContainer) {},
+  getPublicInstance(instance) {},
+  getRootHostContext(rootContainer) {},
+  prepareForCommit(containerInfo) {
     return null;
   },
-  resetAfterCommit() {},
-  shouldSetTextContent() {
+  resetAfterCommit(containerInfo) {},
+  shouldSetTextContent(type, props) {
     return false;
   },
 });
