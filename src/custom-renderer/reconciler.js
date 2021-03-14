@@ -24,9 +24,15 @@ export const reconciler = ReactReconciler({
     return document.createTextNode(text);
   },
 
-  appendChildToContainer() {},
-  appendChild() {},
-  appendInitialChild() {},
+  appendChildToContainer(container, child) {
+    container.appendChild(child);
+  },
+  appendChild(parent, child) {
+    parent.appendChild(child);
+  },
+  appendInitialChild(parent, child) {
+    parent.appendChild(child);
+  },
 
   prepareUpdate() {},
   commitUpdate() {},
