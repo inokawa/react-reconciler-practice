@@ -3,12 +3,16 @@ import ReactReconciler from "react-reconciler";
 const ATTRS = ["style", "alt", "className", "href", "rel", "src", "target"];
 
 const applyProps = (el, props, k) => {
-  if (k === "style") {
-    Object.entries(props.style).forEach(([k, v]) => {
-      el.style[k] = v;
-    });
-  } else {
-    el[k] = props[k];
+  if (ATTRS.includes(k)) {
+    if (k === "style") {
+      Object.entries(props.style).forEach(([k, v]) => {
+        el.style[k] = v;
+      });
+    } else {
+      el[k] = props[k];
+    }
+  } else if (k.startsWith("on")) {
+    el.addEventListener(k.slice(2).toLowerCase(), props[k]);
   }
 };
 
@@ -23,15 +27,9 @@ export const reconciler = ReactReconciler({
     internalInstanceHandle
   ) {
     const el = document.createElement(type);
-    ATTRS.forEach((k) => {
-      if (props[k]) {
-        applyProps(el, props, k);
-      }
+    Object.entries(props).forEach(([k, v]) => {
+      applyProps(el, props, k);
     });
-
-    if (props.onClick) {
-      el.addEventListener("click", props.onClick);
-    }
 
     return el;
   },
@@ -97,10 +95,8 @@ export const reconciler = ReactReconciler({
     newProps,
     finishedWork
   ) {
-    ATTRS.forEach((k) => {
-      if (updatePayload[k]) {
-        applyProps(instance, updatePayload, k);
-      }
+    Object.entries(updatePayload).forEach(([k, v]) => {
+      applyProps(instance, updatePayload, k);
     });
   },
 
