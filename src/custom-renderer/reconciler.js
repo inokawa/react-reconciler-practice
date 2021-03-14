@@ -95,10 +95,18 @@ export const reconciler = ReactReconciler({
     });
   },
 
-  finalizeInitialChildren(instance, type, props, rootContainer, hostContext) {},
-  getChildHostContext(parentHostContext, type, rootContainer) {},
-  getPublicInstance(instance) {},
-  getRootHostContext(rootContainer) {},
+  finalizeInitialChildren(instance, type, props, rootContainer, hostContext) {
+    return false;
+  },
+  getChildHostContext(parentHostContext, type, rootContainer) {
+    return parentHostContext;
+  },
+  getPublicInstance(instance) {
+    return instance;
+  },
+  getRootHostContext(rootContainer) {
+    return null;
+  },
   prepareForCommit(containerInfo) {
     return null;
   },
