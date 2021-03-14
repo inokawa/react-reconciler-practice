@@ -67,6 +67,10 @@ export const reconciler = ReactReconciler({
     parent.insertBefore(child, before);
   },
 
+  commitTextUpdate(instance, oldText, newText) {
+    if (oldText !== newText) instance.textContent = newText;
+  },
+
   clearContainer(container) {
     let c = container.firstChild;
     while (c) {

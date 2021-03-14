@@ -16,12 +16,14 @@ const Image = () => (
 function App() {
   const [showLogo, setShowLogo] = React.useState(true);
   const [bgColor, setBgColor] = React.useState<"red" | "blue" | "green">("red");
+  const [text, setText] = React.useState("");
   React.useEffect(() => {
     const colors = ["red", "blue", "green"] as const;
     let i = 0;
     const id = setInterval(() => {
       i++;
       setBgColor(colors[i % 3]);
+      setText(String(i));
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -33,6 +35,7 @@ function App() {
         <p style={{ background: bgColor }}>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        {text && text}
         <Image />
       </header>
     </div>
