@@ -87,7 +87,7 @@ export const reconciler = ReactReconciler({
     ATTRS.forEach((k) => {
       if (oldProps[k] !== newProps[k]) payload[k] = newProps[k];
     });
-    return payload;
+    return Object.keys(payload).length === 0 ? null : payload;
   },
   commitUpdate(
     instance,
