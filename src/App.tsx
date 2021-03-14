@@ -2,6 +2,17 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+const Image = () => (
+  <a
+    className="App-link"
+    href="https://reactjs.org"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Learn React
+  </a>
+);
+
 function App() {
   const [showLogo, setShowLogo] = React.useState(true);
   const [bgColor, setBgColor] = React.useState<"red" | "blue" | "green">("red");
@@ -22,14 +33,7 @@ function App() {
         <p style={{ background: bgColor }}>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Image />
       </header>
     </div>
   );
