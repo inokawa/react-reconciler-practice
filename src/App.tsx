@@ -1,12 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const [showLogo, setShowLogo] = React.useState(true);
   return (
-    <div className="App">
+    <div className="App" onClick={() => setShowLogo((prev) => !prev)}>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {showLogo && <img src={logo} className="App-logo" alt="logo" />}
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
