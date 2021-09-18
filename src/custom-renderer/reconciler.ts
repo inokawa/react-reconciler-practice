@@ -59,33 +59,21 @@ export const reconciler = ReactReconciler({
     return document.createTextNode(text);
   },
 
-  appendChildToContainer(
-    container: Container,
-    child: ElemInstance | TextInstance
-  ) {
-    container.appendChild(child);
+  finalizeInitialChildren(
+    instance: ElemInstance,
+    type: Type,
+    props: any,
+    rootContainer: Container,
+    hostContext: HostContext
+  ): boolean {
+    return false;
   },
-  appendChild(parent: ElemInstance, child: ElemInstance | TextInstance) {
-    parent.appendChild(child);
-  },
-  appendInitialChild(parent: ElemInstance, child: ElemInstance | TextInstance) {
-    parent.appendChild(child);
-  },
-
-  insertInContainerBefore(
-    container: Container,
-    child: ElemInstance | TextInstance,
-    before: ElemInstance | TextInstance
-  ) {
-    container.insertBefore(child, before);
-  },
-  insertBefore(
-    parent: ElemInstance,
-    child: ElemInstance | TextInstance,
-    before: ElemInstance | TextInstance
-  ) {
-    parent.insertBefore(child, before);
-  },
+  commitMount(
+    instance: ElemInstance,
+    type: Type,
+    props: any,
+    internalHandle: any
+  ) {},
 
   prepareUpdate(
     instance: ElemInstance,
@@ -117,6 +105,34 @@ export const reconciler = ReactReconciler({
     if (oldText !== newText) instance.textContent = newText;
   },
 
+  appendChildToContainer(
+    container: Container,
+    child: ElemInstance | TextInstance
+  ) {
+    container.appendChild(child);
+  },
+  appendChild(parent: ElemInstance, child: ElemInstance | TextInstance) {
+    parent.appendChild(child);
+  },
+  appendInitialChild(parent: ElemInstance, child: ElemInstance | TextInstance) {
+    parent.appendChild(child);
+  },
+
+  insertInContainerBefore(
+    container: Container,
+    child: ElemInstance | TextInstance,
+    before: ElemInstance | TextInstance
+  ) {
+    container.insertBefore(child, before);
+  },
+  insertBefore(
+    parent: ElemInstance,
+    child: ElemInstance | TextInstance,
+    before: ElemInstance | TextInstance
+  ) {
+    parent.insertBefore(child, before);
+  },
+
   removeChildFromContainer(
     container: Container,
     child: ElemInstance | TextInstance
@@ -134,22 +150,6 @@ export const reconciler = ReactReconciler({
       c = container.firstChild;
     }
   },
-
-  finalizeInitialChildren(
-    instance: ElemInstance,
-    type: Type,
-    props: any,
-    rootContainer: Container,
-    hostContext: HostContext
-  ): boolean {
-    return false;
-  },
-  commitMount(
-    instance: ElemInstance,
-    type: Type,
-    props: any,
-    internalHandle: any
-  ) {},
 
   getRootHostContext(rootContainer: Container): HostContext {
     return null;
