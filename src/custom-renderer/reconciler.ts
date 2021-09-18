@@ -9,6 +9,8 @@ type ElemInstance = HTMLElement;
 
 type TextInstance = Text;
 
+type HostContext = null;
+
 type UpdatePayload = {
   [key: string]: any;
 };
@@ -38,7 +40,7 @@ export const reconciler = ReactReconciler({
     type: Type,
     props: any,
     rootContainer: Container,
-    hostContext: any,
+    hostContext: HostContext,
     internalHandle: any
   ): ElemInstance {
     const el = document.createElement(type);
@@ -51,7 +53,7 @@ export const reconciler = ReactReconciler({
   createTextInstance(
     text: string,
     rootContainer: Container,
-    hostContext: any,
+    hostContext: HostContext,
     internalHandle: any
   ): TextInstance {
     return document.createTextNode(text);
@@ -91,7 +93,7 @@ export const reconciler = ReactReconciler({
     oldProps: any,
     newProps: any,
     rootContainer: Container,
-    hostContext: any
+    hostContext: HostContext
   ): UpdatePayload | null {
     const payload: UpdatePayload = {};
     ATTRS.forEach((k) => {
@@ -138,7 +140,7 @@ export const reconciler = ReactReconciler({
     type: Type,
     props: any,
     rootContainer: Container,
-    hostContext: any
+    hostContext: HostContext
   ): boolean {
     return false;
   },
@@ -149,24 +151,24 @@ export const reconciler = ReactReconciler({
     internalHandle: any
   ) {},
 
-  getRootHostContext(rootContainer: Container) {
+  getRootHostContext(rootContainer: Container): HostContext {
     return null;
   },
   getChildHostContext(
-    parentHostContext: any,
+    parentHostContext: HostContext,
     type: Type,
     rootContainer: Container
-  ) {
+  ): HostContext {
     return parentHostContext;
   },
-  getPublicInstance(instance: any) {
+  getPublicInstance(instance: ElemInstance) {
     return instance;
   },
-  prepareForCommit(containerInfo: any) {
+  prepareForCommit(containerInfo: Container): Object | null {
     return null;
   },
-  resetAfterCommit(containerInfo: any) {},
-  shouldSetTextContent(type: Type, props: any) {
+  resetAfterCommit(containerInfo: Container) {},
+  shouldSetTextContent(type: Type, props: any): boolean {
     return false;
   },
   resetTextContent(instance: TextInstance) {},
